@@ -1,0 +1,1 @@
+ from WebUser user where user.username = 'user1'
