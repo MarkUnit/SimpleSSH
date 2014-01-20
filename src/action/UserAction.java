@@ -1,15 +1,22 @@
 package action;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Component;
+
 import po.WebUser;
 import service.UserService;
 import service.impl.UserServiceImpl;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+@Component
 public class UserAction extends ActionSupport {
 	private String username;
 	private String psw;
 	private String psw2;
+	
+	private UserService userService;
 	
 	public String register(){
 		if (!psw.equals(psw2)) {
@@ -20,7 +27,6 @@ public class UserAction extends ActionSupport {
 		user.setUsername(username);
 		user.setPsw(psw);
 		
-		UserService userService = new UserServiceImpl();
 		userService.add(user);
 		return SUCCESS;
 	}
@@ -47,5 +53,14 @@ public class UserAction extends ActionSupport {
 
 	public void setPsw2(String psw2) {
 		this.psw2 = psw2;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	@Resource
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 }
