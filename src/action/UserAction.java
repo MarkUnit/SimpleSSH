@@ -2,19 +2,23 @@ package action;
 
 import javax.annotation.Resource;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import po.WebUser;
 import service.UserService;
-import service.impl.UserServiceImpl;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@Component
+@Scope("prototype")
+@Component("userAction")
 public class UserAction extends ActionSupport {
 	private String username;
 	private String psw;
 	private String psw2;
+	
+	private WebUser user;
+	private int id;
 	
 	private UserService userService;
 	
@@ -29,6 +33,11 @@ public class UserAction extends ActionSupport {
 		
 		userService.add(user);
 		return SUCCESS;
+	}
+	
+	public String load() {
+		user = userService.loadById(id);
+		return "";
 	}
 
 	public String getUsername() {
@@ -62,5 +71,21 @@ public class UserAction extends ActionSupport {
 	@Resource
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	public WebUser getUser() {
+		return user;
+	}
+
+	public void setUser(WebUser user) {
+		this.user = user;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

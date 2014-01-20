@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import po.WebUser;
 import service.UserService;
 import dao.UserDAO;
-import dao.impl.UserDAOImpl;
 
 @Component("userService")
 public class UserServiceImpl implements UserService {
@@ -29,5 +28,10 @@ public class UserServiceImpl implements UserService {
 	@Resource
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
+	}
+
+	@Override
+	public WebUser loadById(int id) {
+		return userDAO.loadById(id);
 	}
 }

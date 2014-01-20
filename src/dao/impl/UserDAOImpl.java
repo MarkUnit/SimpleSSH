@@ -14,6 +14,7 @@ public class UserDAOImpl extends SuperDAO implements UserDAO {
 	public WebUser queryByName(String name) {
 		WebUser user = null;
 			String hql = " from WebUser user where user.username = :username";
+			@SuppressWarnings("unchecked")
 			List<WebUser> users = getHibernateTemplate().findByNamedParam(hql, "username", name);
 			if (null != users) {
 				user = users.get(0);
@@ -25,5 +26,10 @@ public class UserDAOImpl extends SuperDAO implements UserDAO {
 	@Override
 	public void save(WebUser user) {
 		getHibernateTemplate().save(user);
+	}
+	
+	@Override
+	public WebUser loadById(int id) {
+		return (WebUser)getHibernateTemplate().load(WebUser.class, id);
 	}
 }

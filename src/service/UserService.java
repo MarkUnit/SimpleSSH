@@ -7,4 +7,5 @@ import dao.impl.UserDAOImpl;
 public interface UserService {
 	public boolean exists(WebUser user);
 	public void add(WebUser user);
+	public WebUser loadById(int id);
 }
