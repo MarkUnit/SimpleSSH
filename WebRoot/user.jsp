@@ -23,6 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  	<s:debug></s:debug>
   	<!-- <form method="post" action="registerDeal.jsp"> -->
   	<form method="post" action="user_register">
   		<s:property value="user.username"/>

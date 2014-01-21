@@ -5,6 +5,7 @@
 
 <struts>
 	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.devMode" value="true" />
 
 	<package name="struts2" extends="struts-default">
 		<action name="user_*" class="action.UserAction" method="{1}">
