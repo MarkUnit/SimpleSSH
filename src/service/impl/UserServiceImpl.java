@@ -34,4 +34,9 @@ public class UserServiceImpl implements UserService {
 	public WebUser getById(int id) {
 		return userDAO.getById(id);
 	}
+
+	@Override
+	public WebUser loadById(int id) {
+		return userDAO.loadById(id);
+	}
 }

@@ -37,12 +37,20 @@
 		
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 	    <property name="dataSource" ref="dataSource"/>
-	    <!-- <property name="mappingDirectoryLocations" value="po"></property> -->
-	    <property name="mappingResources">
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect"> org.hibernate.dialect.MySQLDialect </prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	    <!-- <property name="mappingDirectoryLocations">
 	    	<list>
-	    		<value>po/WebUser.hbm.xml</value>
+	    		<value>WEB-INF\classes\po</value>
 	    	</list>
-	    </property>
+	    </property> -->
+	    <property name="mappingLocations"> 
+		    <value>classpath:**/po/*.hbm.xml </value> 
+		</property>
   	</bean>
   	
   	<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">

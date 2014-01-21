@@ -32,4 +32,9 @@ public class UserDAOImpl extends SuperDAO implements UserDAO {
 	public WebUser getById(int id) {
 		return (WebUser)getHibernateTemplate().get(WebUser.class, id);
 	}
+	
+	@Override
+	public WebUser loadById(int id) {
+		return (WebUser)getHibernateTemplate().load(WebUser.class, id);
+	}
 }

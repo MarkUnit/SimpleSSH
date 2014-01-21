@@ -36,7 +36,20 @@ public class UserActionTest {
 		UserAction userAction = (UserAction) ac.getBean("userAction");
 		
 		userAction.setId(2);
-		String result = userAction.getWebUser();
+		String result = userAction.queryWebUserLoad();
+		
+		WebUser user = userAction.getUser();
+		
+		assertEquals("getWebUser", result);
+		assertNotNull(user.getUsername());
+	}
+	
+	@Test
+	public void testGet(){
+		UserAction userAction = (UserAction) ac.getBean("userAction");
+		
+		userAction.setId(2);
+		String result = userAction.queryWebUserGet();
 		
 		WebUser user = userAction.getUser();
 		

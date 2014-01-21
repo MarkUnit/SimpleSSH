@@ -22,6 +22,10 @@ public class UserAction extends ActionSupport {
 	
 	private UserService userService;
 	
+	public UserAction() {
+		System.out.println("a new UserAction is created.");
+	}
+	
 	public String register(){
 		if (!psw.equals(psw2)) {
 			return "fail";
@@ -35,8 +39,13 @@ public class UserAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String getWebUser() {
+	public String queryWebUserGet() {
 		user = userService.getById(id);
+		return "getWebUser";
+	}
+	
+	public String queryWebUserLoad() {
+		user = userService.loadById(id);
 		return "getWebUser";
 	}
 
