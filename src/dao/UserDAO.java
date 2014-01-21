@@ -6,5 +6,5 @@ public interface UserDAO {
 	
 	public WebUser queryByName(String name);
 	public void save(WebUser user);
-	public WebUser loadById(int id);
+	public WebUser getById(int id);
 }

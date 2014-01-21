@@ -35,9 +35,9 @@ public class UserAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String load() {
-		user = userService.loadById(id);
-		return "";
+	public String getWebUser() {
+		user = userService.getById(id);
+		return "getWebUser";
 	}
 
 	public String getUsername() {

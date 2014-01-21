@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public WebUser loadById(int id) {
-		return userDAO.loadById(id);
+	public WebUser getById(int id) {
+		return userDAO.getById(id);
 	}
 }
