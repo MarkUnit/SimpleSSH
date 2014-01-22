@@ -12,7 +12,7 @@ import po.WebUser;
 
 public class UserActionTest {
 	ApplicationContext ac = null;
-	
+
 	@Before
 	public void init() {
 		ac = new ClassPathXmlApplicationContext("applicationContext.xml");
