@@ -2,58 +2,80 @@ package action;
 
 import static org.junit.Assert.*;
 
+import javax.annotation.Resource;
+
+import org.hibernate.SQLQuery;
+import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.web.servlet.ModelAndView;
+
+import dao.UserDAO;
 
 import po.WebUser;
 
-public class UserActionTest {
-	ApplicationContext ac = null;
-
+@ContextConfiguration("/applicationContext.xml")
+public class UserActionTest extends AbstractTransactionalJUnit4SpringContextTests{
+	private SessionFactory sessionFactory;
+	private UserAction userAction;
+	
+	private static int MAGIC_ID = 0;
+	private static String MAGIC_NAME = "youNeverUseThisAsName";
+	private static String MAGIC_PSW = "youNeverUseThisAsPsw";
+	
 	@Before
-	public void init() {
-		ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+	public void insertData() {
+		String sqlForInsert = "insert into webuser(username, psw) values('" + MAGIC_NAME + "', '" + MAGIC_PSW + "')";
+		SQLQuery insertQuery = sessionFactory.getCurrentSession().createSQLQuery(sqlForInsert);
+		insertQuery.executeUpdate();
+		
+		String sqlForQuery = " select id from webuser where username = '" + MAGIC_NAME + "'";
+		SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(sqlForQuery);
+		MAGIC_ID = (Integer) query.uniqueResult();
 	}
 
-	@Ignore
 	@Test
 	public void testRegister() {
-		UserAction userAction = (UserAction)ac.getBean("userAction");
+		String result = userAction.register("测试注册", "psw", "psw");
 		
-		userAction.setUsername("testname2");
-		userAction.setPsw("testPsw2");
-		userAction.setPsw2("testPsw2");
-		String result = userAction.register();
-		
-		assertEquals("success", result);
+		assertEquals("registerSuccess", result);
 	}
 	
 	@Test
 	public void testLoad() {
-		UserAction userAction = (UserAction) ac.getBean("userAction");
+		ModelAndView mac = userAction.queryWebUserLoad(MAGIC_ID);
+		WebUser user = (WebUser) mac.getModel().get("webUser");
 		
-		userAction.setId(2);
-		String result = userAction.queryWebUserLoad();
-		
-		WebUser user = userAction.getUser();
-		
-		assertEquals("getWebUser", result);
-		assertNotNull(user.getUsername());
+		assertEquals(MAGIC_NAME, user.getUsername());
 	}
 	
 	@Test
 	public void testGet(){
-		UserAction userAction = (UserAction) ac.getBean("userAction");
+		ModelAndView mac = userAction.queryWebUserGet(MAGIC_ID);
+		WebUser user = (WebUser) mac.getModel().get("webUser");
 		
-		userAction.setId(2);
-		String result = userAction.queryWebUserGet();
-		
-		WebUser user = userAction.getUser();
-		
-		assertEquals("getWebUser", result);
-		assertNotNull(user.getUsername());
+		assertEquals(MAGIC_NAME, user.getUsername());
+	}
+
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+	@Resource
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	public UserAction getUserAction() {
+		return userAction;
+	}
+
+	@Resource
+	public void setUserAction(UserAction userAction) {
+		this.userAction = userAction;
 	}
 }

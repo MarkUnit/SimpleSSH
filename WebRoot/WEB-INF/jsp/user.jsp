@@ -3,7 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<%@ taglib prefix="s" uri="/struts-tags"  %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -23,10 +23,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	<s:debug></s:debug>
   	<!-- <form method="post" action="registerDeal.jsp"> -->
   	<form method="post" action="user_register">
-  		<s:property value="user.username"/>
+  		<c:out value="${webUser.username }"></c:out>
+  	
   	</form>
   </body>
 </html>

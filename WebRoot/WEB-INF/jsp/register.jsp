@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   	<!-- <form method="post" action="registerDeal.jsp"> -->
-  	<form method="post" action="user/register333">
+  	<form method="post" action="user_register">
   		用户名：<input type="text" name="username" id="username"><br>
   		密码：<input type="password" name="psw" id="psw"><br>
   		确认密码：<input type="password" name="psw2" id="psw2"><br>

@@ -2,33 +2,28 @@ package action;
 
 import javax.annotation.Resource;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import po.WebUser;
 import service.UserService;
 
-import com.opensymphony.xwork2.ActionSupport;
-
-@Scope("prototype")
-@Component("userAction")
-public class UserAction extends ActionSupport {
-	private String username;
-	private String psw;
-	private String psw2;
-	
-	private WebUser user;
-	private int id;
-	
+@Controller
+@RequestMapping("/user")
+public class UserAction {
 	private UserService userService;
 	
 	public UserAction() {
 		System.out.println("a new UserAction is created.");
 	}
 	
-	public String register(){
+	@RequestMapping("/register")
+	public String register(@RequestParam String username, @RequestParam String psw, @RequestParam String psw2){
 		if (!psw.equals(psw2)) {
-			return "fail";
+			return "registerFail";
 		}
 		
 		WebUser user = new WebUser();
@@ -36,42 +31,27 @@ public class UserAction extends ActionSupport {
 		user.setPsw(psw);
 		
 		userService.add(user);
-		return SUCCESS;
+		return "registerSuccess";
 	}
 	
-	public String queryWebUserGet() {
-		user = userService.getById(id);
-		return "getWebUser";
+	@RequestMapping("/get")
+	public ModelAndView queryWebUserGet(@RequestParam int id) {
+		ModelAndView mav = new ModelAndView("user");
+		WebUser user = userService.getById(id);
+		
+		mav.addObject(user);
+		
+		return mav;
 	}
 	
-	public String queryWebUserLoad() {
-		user = userService.loadById(id);
-		return "getWebUser";
+	@RequestMapping("/load")
+	public ModelAndView queryWebUserLoad(@RequestParam int id) {
+		ModelAndView mav = new ModelAndView("user");
+		WebUser user = userService.getById(id);
+		
+		return mav.addObject(user);
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPsw() {
-		return psw;
-	}
-
-	public void setPsw(String psw) {
-		this.psw = psw;
-	}
-
-	public String getPsw2() {
-		return psw2;
-	}
-
-	public void setPsw2(String psw2) {
-		this.psw2 = psw2;
-	}
 
 	public UserService getUserService() {
 		return userService;
@@ -82,19 +62,4 @@ public class UserAction extends ActionSupport {
 		this.userService = userService;
 	}
 
-	public WebUser getUser() {
-		return user;
-	}
-
-	public void setUser(WebUser user) {
-		this.user = user;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 }
