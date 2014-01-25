@@ -24,9 +24,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   	<!-- <form method="post" action="registerDeal.jsp"> -->
-  	<form method="post" action="user_register">
   		<c:out value="${webUser.username }"></c:out>
-  	
-  	</form>
   </body>
 </html>

@@ -3,13 +3,13 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
     
-    <title>用户注册</title>
+    <title>出错啦！</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -23,12 +23,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	<!-- <form method="post" action="registerDeal.jsp"> -->
-  	<form method="post" action="user_register">
-  		用户名：<input type="text" name="username" id="username"><br>
-  		密码：<input type="password" name="psw" id="psw"><br>
-  		确认密码：<input type="password" name="psw2" id="psw2"><br>
-  		<input type="submit" value="提交">
-  	</form>
+  	大事不好，出错了！<br>
+	
+    错误码：<c:out value="${status }"></c:out><br>
+    <c:out value="${ex.getMessage() }"></c:out>
   </body>
 </html>

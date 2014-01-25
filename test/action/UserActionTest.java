@@ -1,28 +1,23 @@
 package action;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import javax.annotation.Resource;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.web.servlet.ModelAndView;
-
-import dao.UserDAO;
 
 import po.WebUser;
 
 @ContextConfiguration("/applicationContext.xml")
 public class UserActionTest extends AbstractTransactionalJUnit4SpringContextTests{
 	private SessionFactory sessionFactory;
-	private UserAction userAction;
+	private UserController userAction;
 	
 	private static int MAGIC_ID = 0;
 	private static String MAGIC_NAME = "youNeverUseThisAsName";
@@ -61,7 +56,8 @@ public class UserActionTest extends AbstractTransactionalJUnit4SpringContextTest
 		
 		assertEquals(MAGIC_NAME, user.getUsername());
 	}
-
+	
+	
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
@@ -70,12 +66,12 @@ public class UserActionTest extends AbstractTransactionalJUnit4SpringContextTest
 		this.sessionFactory = sessionFactory;
 	}
 
-	public UserAction getUserAction() {
+	public UserController getUserAction() {
 		return userAction;
 	}
 
 	@Resource
-	public void setUserAction(UserAction userAction) {
+	public void setUserAction(UserController userAction) {
 		this.userAction = userAction;
 	}
 }

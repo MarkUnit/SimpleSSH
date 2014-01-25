@@ -46,4 +46,9 @@
     <!-- <param-value>/WEB-INF/applicationContext-*.xml,classpath*:applicationContext-*.xml </param-value> -->
     <param-value>classpath*:applicationContext.xml </param-value>
   </context-param>
+
+  <error-page>
+      <location>/error</location>
+  </error-page>
+  
 </web-app>

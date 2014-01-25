@@ -88,9 +88,24 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="interceptor.PrivilegeInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 	<mvc:view-controller path="/" view-name="register"/>
 	<mvc:resources mapping="/resources/**" location="/public-resources/" />
 	<mvc:default-servlet-handler/>
 	
+	<bean name="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="defaultErrorView" value="error"></property>
+		<property name="exceptionAttribute" value="ex"></property>
+		<property name="exceptionMappings">
+			<props>
+				<prop key="UserTestException">userTestException</prop>
+			</props>
+		</property>
+	</bean>
 	
 </beans>

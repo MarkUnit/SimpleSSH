@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>用户注册</title>
+    <title>My JSP 'UserTestException.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -23,12 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	<!-- <form method="post" action="registerDeal.jsp"> -->
-  	<form method="post" action="user/register333">
-  		用户名：<input type="text" name="username" id="username"><br>
-  		密码：<input type="password" name="psw" id="psw"><br>
-  		确认密码：<input type="password" name="psw2" id="psw2"><br>
-  		<input type="submit" value="提交">
-  	</form>
+    这是因为有意抛出了一个异常，不要在意这些细节
   </body>
 </html>
